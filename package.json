@@ -1,0 +1,39 @@
+{
+  "name": "mesh-patch",
+  "version": "1.0.0",
+  "description": "Extract a patch from a mesh given a seed face using dihedral angle heuristics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.github.com/ataber/mesh-patch.git"
+  },
+  "keywords": [
+    "mesh",
+    "simplicial",
+    "complex",
+    "segment",
+    "patch",
+    "dihedral",
+    "angle",
+    "extract",
+    "select"
+  ],
+  "author": "Andrew Taber <andrew.e.taber@gmail.com> (http://taber.space)",
+  "license": "ISC",
+  "dependencies": {
+    "gl-vec3": "^1.1.3",
+    "npm": "^6.2.0",
+    "simplicial-complex": "^1.0.0",
+    "triangle-normal": "0.0.0"
+  },
+  "devDependencies": {
+    "bunny": "^1.0.1",
+    "gl-mat4": "^1.2.0",
+    "normals": "^1.1.0",
+    "regl": "^1.3.7",
+    "regl-camera": "^2.1.1"
+  }
+}
