@@ -1,13 +1,17 @@
 const complex = require('simplicial-complex')
 const triangleNormal = require('triangle-normal')
 const vec3 = require('gl-vec3')
+const extractCurvature = require('mesh-mean-curvature')
 
 module.exports = function (cells, positions) {
-  // cells = Array.from(cells)
-  // complex.normalize(cells)
+  const curvature = extractCurvature(cells, positions)
   const edges = complex.unique(complex.skeleton(cells, 1))
   const edgeToCellIncidence = complex.incidence(edges, cells)
   const vertexToCellIncidence = complex.dual(cells)
+
+  function computeFacetMeanCurvature(cell) {
+    return (curvature[cell[0]] + curvature[cell[1]] + curvature[cell[2]]) / cell.length
+  }
 
   function computeDihedralAngle(cell1, cell2) {
     const normals = [cell1, cell2].map(function(cell) {
@@ -35,7 +39,7 @@ module.exports = function (cells, positions) {
     return Math.acos(vec3.dot(normals[0], normals[1])) * 180 / Math.PI
   }
 
-  return function(seedFaceId, angleThreshold = 5) {
+  return function(seedFaceId, curvatureThreshold = 9) {
     const stack = []
     const faceIds = []
     const visited = new Array(cells.length).fill(false)
@@ -56,6 +60,7 @@ module.exports = function (cells, positions) {
       faceIds.push(curFID)
 
       const currentCell = cells[curFID]
+      const currentCurvature = computeFacetMeanCurvature(currentCell)
       for (let vid = 0; vid < 3; vid++) {
         const edge = [currentCell[vid], currentCell[(vid + 1) % 3]]
         const edgeIndex = complex.findCell(edges, edge)
@@ -71,9 +76,8 @@ module.exports = function (cells, positions) {
           }
 
           const incidentCell = cells[cellIndex]
-          let angle = Math.abs(computeDihedralAngle(currentCell, incidentCell))
-          angle = angle > 90 ? 180 - angle : angle
-          if (angle <= angleThreshold) {
+          const facetCurvature = Math.abs(computeFacetMeanCurvature(incidentCell))
+          if (Math.abs(facetCurvature - currentCurvature) <= curvatureThreshold) {
             stack.push(cellIndex)
           }
         })

@@ -1,9 +1,10 @@
 var bunny = require('bunny');
+// var bunny = require('primitive-cylinder')(10,10,5, 100, 100)
 var patch = require('./index.js');
 var normals = require('normals');
 
 const extractPatch = patch(bunny.cells, bunny.positions)
-const randomPatch = extractPatch(0, 13)
+const randomPatch = extractPatch(0)
 // console.log(randomPatch, bunny.cells[randomPatch[0]], bunny.cells[randomPatch[1]])
 
 var regl = require('regl')();
