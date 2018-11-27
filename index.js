@@ -3,8 +3,6 @@ const triangleNormal = require('triangle-normal')
 const vec3 = require('gl-vec3')
 
 module.exports = function (cells, positions) {
-  // cells = Array.from(cells)
-  // complex.normalize(cells)
   const edges = complex.unique(complex.skeleton(cells, 1))
   const edgeToCellIncidence = complex.incidence(edges, cells)
   const vertexToCellIncidence = complex.dual(cells)
