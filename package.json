@@ -25,7 +25,6 @@
   "license": "ISC",
   "dependencies": {
     "gl-vec3": "^1.1.3",
-    "npm": "^6.2.0",
     "simplicial-complex": "^1.0.0",
     "triangle-normal": "0.0.0"
   },
