@@ -1,6 +1,6 @@
 {
   "name": "mesh-patch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extract a patch from a mesh given a seed face using dihedral angle heuristics.",
   "main": "index.js",
   "scripts": {
